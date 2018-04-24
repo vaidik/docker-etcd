@@ -10,4 +10,4 @@ RUN mv etcd-v2.0.11-linux-amd64 etcd
 
 EXPOSE 2379
 
-ENTRYPOINT ["/usr/local/etcd/etcd --listen-client-urls='http://0.0.0.0:2379,http://0.0.0.0:4001' --advertise-client-urls='http://localhost:2379,http://localhost:4001'"]
+ENTRYPOINT ["/usr/local/etcd/etcd"]

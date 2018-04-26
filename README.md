@@ -18,7 +18,32 @@ to see the logs:
 docker logs -f <container-name>
 ```
 
-### Using the `etcd` client
+### Using `etcdctl`
+
+`etcdctl` comes with this container image and can be found in `PATH`.
+
+While developing locally, you can connect attach an interactive shell in your
+container and just use `etcdctl` directly.
+
+In production-like environments or where your `etcd` container is not running on
+your local machine, you can also use this container image to run `etcd`
+separately. Consider this example:
+
+Run the server in a separate container:
+
+```
+docker run --name etcd_server docker.io/vaidik/etcd --listen-client-urls='http://0.0.0.0:2379,http://0.0.0.0:4001' --advertise-client-urls='http://0.0.0.0:2379,http://0.0.0.0:4001'
+```
+
+Run the `etcdctl` client in a separate container like so:
+
+```
+docker run --link etcd_server:etcd_server --entrypoint etcdctl docker.io/vaidik/etcd --no-sync -C 'http://etcd_server:4001' set foo bar
+```
+
+**Note:** In some older versions of `etcd`, `--no-sync` option is required to
+make `etcdctl` work with `-C` flag. See [this
+issue](https://github.com/coreos/etcd/issues/2734).
 
 ### Configuration
 
@@ -30,14 +55,14 @@ arguments at the end of the `docker run` command like you pass to the `etcd`
 server, like so:
 
 ```
-docker run -d docker.io/vaidik/etcd --listen-client-urls='http://0.0.0.0:2379,http://0.0.0.0:4001' --advertise-client-urls='http://localhost:2379,http://localhost:4001'
+docker run docker.io/vaidik/etcd --data-dir='/opt/etcd/data'
 ```
 
 If you prefer using environment variables, you need to execute `docker run`
 command slightly differently, like so:
 
 ```
-docker run -d -e ETCD_LISTEN_CLIENT_URLS='http://0.0.0.0:2379,http://0.0.0.0:4001' -e ETCD_ADVERTISE_CLIENT_URLS='http://localhost:2379,http://localhost:4001' docker.io/vaidik/etcd
+docker run docker.io/vaidik/etcd ETCD_DATA_DIR='/opt/etcd/data'
 ```
 
 ### Where to store data (`--data-dir`)?

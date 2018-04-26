@@ -1,5 +1,7 @@
 # docker-etcd
 
+[![Build Status](https://api.travis-ci.org/vaidik/docker-etcd.svg?branch=master)](https://travis-ci.org/vaidik/docker-etcd)
+
 *Unofficial* docker image for [etcd](https://coreos.com/etcd/).
 
 ## Usage

@@ -90,4 +90,8 @@ or another path you have configured for the container at run time to  have
 
 ## License
 
-MIT Licensed
+This container image contains `etcd` is under the Apache 2.0 license. See the
+licensing information [here](https://github.com/coreos/etcd/#license).
+
+Like other container images, this image contains some other software also (like
+`bash`) that may be under different licenses.

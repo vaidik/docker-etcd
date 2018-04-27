@@ -1,5 +1,7 @@
 # docker-etcd
 
+[![Build Status](https://api.travis-ci.org/vaidik/docker-etcd.svg?branch=master)](https://travis-ci.org/vaidik/docker-etcd)
+
 *Unofficial* docker image for [etcd](https://coreos.com/etcd/).
 
 ## Usage
@@ -38,7 +40,7 @@ docker run --name etcd_server docker.io/vaidik/etcd --listen-client-urls='http:/
 Run the `etcdctl` client in a separate container like so:
 
 ```
-docker run --link etcd_server:etcd_server --entrypoint etcdctl docker.io/vaidik/etcd --no-sync -C 'http://etcd_server:4001' set foo bar
+docker run --link etcd_server:etcd_server docker.io/vaidik/etcd etcdctl --no-sync -C 'http://etcd_server:4001' set foo bar
 ```
 
 **Note:** In some older versions of `etcd`, `--no-sync` option is required to
@@ -50,19 +52,19 @@ issue](https://github.com/coreos/etcd/issues/2734).
 etcd can be configured using command line flags and environment variables as
 documented [here](https://coreos.com/etcd/docs/latest/op-guide/configuration.html).
 
-To change configuration for your container, you can pass the command line
-arguments at the end of the `docker run` command like you pass to the `etcd`
-server, like so:
+To change configuration for your container, you can pass the entire `etcd`
+command with arguments at the end of the `docker run` command, like so:
 
 ```
-docker run docker.io/vaidik/etcd --data-dir='/opt/etcd/data'
+docker run docker.io/vaidik/etcd etcd --data-dir='/opt/etcd/data'
 ```
 
 If you prefer using environment variables, you need to execute `docker run`
-command slightly differently, like so:
+command slightly differently (notice the `-e` flag and the *extra* `etcd`
+command at the end), like so:
 
 ```
-docker run docker.io/vaidik/etcd ETCD_DATA_DIR='/opt/etcd/data'
+docker run -e ETCD_DATA_DIR='/opt/etcd/data' docker.io/vaidik/etcd etcd
 ```
 
 ### Where to store data (`--data-dir`)?

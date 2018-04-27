@@ -14,4 +14,4 @@ RUN rm -rf etcd-v2.0.11-linux-amd64
 
 EXPOSE 2379
 
-ENTRYPOINT ["etcd", "--data-dir=/var/lib/etcd"]
+CMD ["etcd", "--data-dir=/var/lib/etcd"]

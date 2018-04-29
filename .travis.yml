@@ -15,7 +15,7 @@ install:
   - git clone https://github.com/docker-library/official-images.git ~/official-images
 
 script:
-  - "./build.sh"
+  - "./ci/build.sh"
 
 after_script:
   - docker images
@@ -25,6 +25,6 @@ before_deploy:
 
 deploy:
   provider: script
-  script: bash deploy.sh
+  script: bash ci/deploy.sh
   on:
     branch: master

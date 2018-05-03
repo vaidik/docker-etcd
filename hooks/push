@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -ex
+
+# Don't push images if branch is not master
+echo "Current Branch: $SOURCE_BRANCH"
+if [ "${SOURCE_BRANCH}" != "master" ]; then
+    exit 0
+fi
+
+for tag in $(sudo docker images vaidik/etcd --format "{{.Tag}}");
+do
+    docker push "vaidik/etcd:${tag}"
+done

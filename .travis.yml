@@ -2,10 +2,6 @@ language: bash
 services: docker
 
 env:
-  global:
-  - REGISTRY_USER=vaidik
-  - secure: bhS+pfzcJA5SxYjbCcTpk1tGovaLGEO5ZepaI3u40DC/HyyiP58I9kwdD8BUER2DuyOgEhk9yzCmZ3iUiuS0hCVWfFFwdCK5BRRrKIEzKR3ZtLp8/MXbFM2oAK8zVOKdOAeA+5FsENE1xMyit2P77JKWFcClMX1ZPtZU5qN7fqNeWtkfpfz77S0eswBSx5bcbdStpbFypq5Kkpfy1Kc9wQLIgeeMF6qU++VkeSZM+OibnU7mQ86Bu+7o01974vmEPayX46EBctbCpDbnZX+pwYguLeNzlMBrbtmbEvp8ErunJeuOhsYJEpBrOfg4asuc3bp+Fvis0zudCwJ67DzGZDuOGrLmKjbSAqUvlMLfBKw+kFCcmQo4JFrCLndIiaGYz2BEdsjFB7BHHzg1QKLkdw+euQ4Zq6k/c5Z+DoUSD3aN/5gW2RuNHmFDj2o1xiwDLGQBjDLu0k05EiaTc7tbIszXomUQ6YCuLsSqLrgxhr1FZuU7xb0v+n1ZzAGpy6+dHP5HMSACVts9a4Cxe8LwNXewlSk61BmrXf7D8c8P8HtsUzEcLblOyyFQ9K0QKXDBuijGf5nFqWyGQocDzT/qXj8WYRqvpWvE6ug+wnMseEstQeP09o0F2u3PHnzRptLOBOQjnI/t1HGUh8iKPp+ImRav9lomsj1dBofWL8bGumc=
-  matrix:
   - VERSION=3.3.1 BASE_IMAGE=debian:stretch-slim BASE_IMAGE_TAG="" EXTRA_TAGS="3.3"
   - VERSION=3.3.1 BASE_IMAGE=alpine:latest BASE_IMAGE_TAG=alpine EXTRA_TAGS="3.3-alpine"
   - VERSION=3.2.19 BASE_IMAGE=debian:stretch-slim BASE_IMAGE_TAG="" EXTRA_TAGS="latest;3.2"
@@ -15,16 +11,7 @@ install:
   - git clone https://github.com/docker-library/official-images.git ~/official-images
 
 script:
-  - "./ci/build.sh"
+  - "./hooks/build.sh"
 
 after_script:
   - docker images
-
-before_deploy:
-  - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
-
-deploy:
-  provider: script
-  script: bash ci/deploy.sh
-  on:
-    branch: master

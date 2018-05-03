@@ -4,6 +4,18 @@
 
 *Unofficial* docker image for [etcd](https://coreos.com/etcd/).
 
+## Supported tags
+
+Images for `etcd` are based of [Debian (Slim)][0] and [Alpine Linux][1] base
+images. All Alpine Linux based images have `-alpine` postfixed in their tag
+after the version (example: `3.2-alpine`).
+
+* 3.2, 3.2.19, latest, 3.2-alpine, 3.2.19-alpine, latest-alpine
+* 3.3, 3.3.1, latest, 3.3-alpine, 3.3.1-alpine
+
+[0]: https://hub.docker.com/_/debian/
+[1]: https://hub.docker.com/_/alpine/
+
 ## Usage
 
 ```

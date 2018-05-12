@@ -46,7 +46,7 @@ separately. Consider this example:
 Run the server in a separate container:
 
 ```
-docker run --name etcd_server docker.io/vaidik/etcd --listen-client-urls='http://0.0.0.0:2379,http://0.0.0.0:4001' --advertise-client-urls='http://0.0.0.0:2379,http://0.0.0.0:4001'
+docker run --name etcd_server docker.io/vaidik/etcd etcd --listen-client-urls='http://0.0.0.0:2379,http://0.0.0.0:4001' --advertise-client-urls='http://0.0.0.0:2379,http://0.0.0.0:4001'
 ```
 
 Run the `etcdctl` client in a separate container like so:
